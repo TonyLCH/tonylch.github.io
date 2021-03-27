@@ -8,10 +8,12 @@ sudo apt -t $(lsb_release -sc)-backports install linux-image-$(dpkg --print-arch
 sudo apt install wireguard-dkms -y
 curl -fsSL wireguard-go.hkcls-network.workers.dev | sudo bash
 curl -fsSL wgcf-install.hkcls-network.workers.dev | sudo bash
-wgcf register
+echo | wgcf register
 wgcf generate
 sed -i '/\:\:\/0/d' wgcf-profile.conf | sed -i 's/engage.cloudflareclient.com/[2606:4700:d0::a29f:c001]/g' wgcf-profile.conf
 cp wgcf-profile.conf /etc/wireguard/wgcf.conf
 sudo systemctl start wg-quick@wgcf
 sudo systemctl enable wg-quick@wgcf
-grep -qE '^[ ]*label[ ]*2002::/16[ ]*2' /etc/gai.conf || echo 'label 2002::/16   2' | sudo tee -a /etc/gai.conf
+grep -qE '^[ ]*precedence[ ]*::ffff:0:0/96[ ]*100' /etc/gai.conf
+sudo wg-quick down wgcf
+sudo wg-quick up wgcf
