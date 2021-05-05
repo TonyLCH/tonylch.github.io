@@ -10,10 +10,10 @@ curl -fsSL wireguard-go.hkcls-network.workers.dev | sudo bash
 curl -fsSL wgcf-install.hkcls-network.workers.dev | sudo bash
 echo | wgcf register
 wgcf generate
-sed -i '/\:\:\/0/d' wgcf-profile.conf | sed -i 's/engage.cloudflareclient.com/[2606:4700:d0::a29f:c001]/g' wgcf-profile.conf
+sed -i '/\:\:\/0/d' wgcf-profile.conf | sed -i 's/engage.cloudflareclient.com/[2606:4700:d0::a29f:c001]/g' wgcf-profile.conf | sudo sed -i 's/2001:4860:4860::8888/001:4860:4860::8844,8.8.8.8,1.1.1.1/g' wgcf-profile.conf
 cp wgcf-profile.conf /etc/wireguard/wgcf.conf
 sudo systemctl start wg-quick@wgcf
 sudo systemctl enable wg-quick@wgcf
-grep -qE '^[ ]*label[ ]*2002::/16[ ]*2' /etc/gai.conf || echo 'label 2002::/16   2' | sudo tee -a /etc/gai.conf
+grep -qE '^[ ]*precedence[ ]*::ffff:0:0/96[ ]*100' /etc/gai.conf || echo 'precedence ::ffff:0:0/96  100' | sudo tee -a /etc/gai.conf
 sudo wg-quick down wgcf
 sudo wg-quick up wgcf
