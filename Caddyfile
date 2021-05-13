@@ -6,8 +6,8 @@ basicauth /$AUUID/* {
     $AUUID $MYUUID-HASH
 }
 
-reverse_proxy https://www.tiktokvideodown.com {
-header_up Host www.tiktokvideodown.com
+reverse_proxy https://pan.baidu.com {
+header_up Host pan.baidu.com
 }
 
 @websocket_xray_vmess {
