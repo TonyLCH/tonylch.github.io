@@ -18,11 +18,11 @@ reverse_proxy @websocket_xray_vmess unix//etc/caddy/vmess
 header Connection *Upgrade*
 header Upgrade    websocket
 path /$AUUID-vless
-}
-reverse_proxy @websocket_xray_vless unix//etc/caddy/vless
 reverse_proxy https://www.tiktokvideodown.com {
 header_up Host www.tiktokvideodown.com
 }
+}
+reverse_proxy @websocket_xray_vless unix//etc/caddy/vless
 
 @websocket_xray_trojan {
 header Connection *Upgrade*
