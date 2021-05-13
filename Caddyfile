@@ -2,13 +2,6 @@
 root * /usr/share/caddy
 file_server browse
 
-header {
-    X-Robots-Tag none
-    X-Content-Type-Options nosniff
-    X-Frame-Options DENY
-    Referrer-Policy no-referrer-when-downgrade
-}
-
 basicauth /$AUUID/* {
     $AUUID $MYUUID-HASH
 }
@@ -30,30 +23,24 @@ reverse_proxy @websocket_xray_vless unix//etc/caddy/vless
 reverse_proxy https://www.tiktokvideodown.com {
 header_up Host www.tiktokvideodown.com
 }
+
 @websocket_xray_trojan {
 header Connection *Upgrade*
 header Upgrade    websocket
 path /$AUUID-trojan
 }
 reverse_proxy @websocket_xray_trojan unix//etc/caddy/trojan
-reverse_proxy https://www.tiktokvideodown.com {
-header_up Host www.tiktokvideodown.com
-}
+
 @websocket_xray_ss {
 header Connection *Upgrade*
 header Upgrade    websocket
 path /$AUUID-ss
 }
 reverse_proxy @websocket_xray_ss 127.0.0.1:4234
-reverse_proxy https://www.tiktokvideodown.com {
-header_up Host www.tiktokvideodown.com
-}
+
 @websocket_xray_socks {
 header Connection *Upgrade*
 header Upgrade    websocket
 path /$AUUID-socks
 }
 reverse_proxy @websocket_xray_socks 127.0.0.1:5234
-reverse_proxy https://www.tiktokvideodown.com {
-header_up Host www.tiktokvideodown.com
-}
