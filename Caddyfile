@@ -6,8 +6,8 @@ basicauth /$AUUID/* {
     $AUUID $MYUUID-HASH
 }
 
-reverse_proxy https://server.pro {
-header_up Host erver.pro
+reverse_proxy https://thealtening.com {
+header_up Host thealtening.com
 }
 
 @websocket_xray_vmess {
