@@ -6,8 +6,8 @@ basicauth /$AUUID/* {
     $AUUID $MYUUID-HASH
 }
 
-reverse_proxy https://sigmaclient.info {
-header_up Host sigmaclient.info
+reverse_proxy https://liquidbounce.net {
+header_up Host liquidbounce.net
 }
 
 @websocket_xray_vmess {
